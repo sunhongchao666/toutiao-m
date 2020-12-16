@@ -1,7 +1,9 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登陆" />
+    <van-nav-bar class="page-nav-bar" title="登陆">
+      <van-icon slot="left" name="cross" @click="$router.back()" />
+    </van-nav-bar>
     <!-- 导航栏 -->
     <!-- 登陆表单 -->
     <!--
@@ -121,10 +123,13 @@ export default {
       })
       // 3、提交表单请求登陆
       try {
-        const res = await login(user)
+        const { data: res } = await login(user)
         console.log(res)
+        // 组件中用到vuex的 mutations 中的setUser函数
         this.$store.commit('setUser', res.data)
         this.$toast.success('登录成功')
+        // 登陆成功后，返回到来的页面
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           // console.log('手机号或验证码错误！')
