@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       user: {
-        mobile: '15633414802',
+        mobile: '13911111113',
         code: '246810'
       },
       // 配置表单验证规则
@@ -111,27 +111,27 @@ export default {
   created() {},
   methods: {
     async onSubmit() {
-      // 1、获取表单数据
+      // 获取表单数据
       const user = this.user
-      // 2、表单验证
-
+      // 表单验证
       // 在组件中可以直接通过 this.$toast 调用
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true, // forbidClick 属性可以禁用背景点击
         duration: 0 // 表示持续时间  如果为0 表示持续展示不停止
       })
-      // 3、提交表单请求登陆
+      // 提交表单请求登陆
       try {
         const { data: res } = await login(user)
         console.log(res)
-        // 组件中用到vuex的 mutations 中的setUser函数
+        // 组件中用到vuex的mutations 中的setUser函数
         this.$store.commit('setUser', res.data)
         this.$toast.success('登录成功')
         // 登陆成功后，返回到来的页面
         this.$router.back()
       } catch (err) {
-        if (err.response.status === 400) {
+        console.dir(err)
+        if (err.response && err.response.status === 400) {
           // console.log('手机号或验证码错误！')
           this.$toast.fail('登录失败，手机号或验证码错误')
         } else {
@@ -139,7 +139,6 @@ export default {
           this.$toast.fail('登陆失败，请稍后重试！')
         }
       }
-      // 4、根据请求响应结果处理后续操作
     },
     // 点击发送验证码按钮触发该方法
     async onSendSms() {
@@ -154,6 +153,7 @@ export default {
       this.countDownTime = true
       // 3、请求发送验证码
       try {
+        // 请求发送验证码的封装方法
         await getSmsCode(this.user.mobile)
         this.$toast.success('发送成功！')
       } catch (err) {

@@ -57,7 +57,7 @@
     <!-- 宫格导航 -->
 
     <van-cell title="消息通知" is-link />
-    <van-cell title="小明同学" is-link />
+    <van-cell title="小智同学" is-link />
     <van-cell
       v-if="user"
       class="logout-cell"
