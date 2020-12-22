@@ -1,10 +1,12 @@
 <template>
   <div class="search-suggestion">
+    <!-- 子传父通过$emit触发父组件的自定义search事件 将text传递给父组件 -->
     <van-cell
       icon="search"
       :title="text"
       v-for="(text, index) in suggestions"
       :key="index"
+      @click="$emit('search', text)"
     >
       <!-- 关键字高亮 -->
       <div slot="title" v-html="highlight(text)"></div>
@@ -61,7 +63,7 @@ export default {
     async loadSearchSuggestions(q) {
       try {
         const { data: res } = await getSearchSuggestions(q)
-        console.log(res)
+        // console.log(res)
         this.suggestions = res.data.options
       } catch (err) {
         this.$toast('数据获取失败，请稍后重试')
