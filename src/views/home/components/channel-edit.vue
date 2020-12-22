@@ -96,7 +96,7 @@ export default {
           tuijianChannels.push(channel)
         }
       })
-      console.log(tuijianChannels)
+      // console.log(tuijianChannels)
       // 将推荐频道return出去
       return tuijianChannels
     },
@@ -112,7 +112,7 @@ export default {
     async loadAllChannels() {
       try {
         const { data: res } = await getAllChannels()
-        console.log(res)
+        // console.log(res)
         this.Allchannels = res.data.channels
       } catch (error) {
         this.$toast('获取频道列表失败！')

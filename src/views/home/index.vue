@@ -9,6 +9,7 @@
         size="small"
         round
         icon="search"
+        to="/search"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -68,7 +69,7 @@ export default {
     return {
       active: 0,
       // 4、定义频道数据列表
-      channels: [],
+      channels: [], // 所有频道数据列表
       channeleEdit: false // 控制编辑频道弹出层的显示状态
     }
   },
