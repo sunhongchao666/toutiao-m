@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <!-- 路由出口 -->
-    <router-view />
+    <keep-alive :exclude="['ArticleIndex', 'SearchIndex']">
+      <!-- 路由出口 -->
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

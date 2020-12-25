@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       user: {
-        mobile: '13911111113',
+        mobile: '13911111115',
         code: '246810'
       },
       // 配置表单验证规则

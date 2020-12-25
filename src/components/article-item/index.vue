@@ -1,5 +1,18 @@
 <template>
-  <van-cell class="article-item">
+  <!-- :to="`/article/${article.art_id}`"
+       :to="'/article/' + article.art_id"   -->
+  <!-- 点击文章列表跳转到详情页 -->
+  <van-cell
+    class="article-item"
+    :to="{
+      // 根据路由名称进行跳转
+      name: 'article',
+      params: {
+        // 属性名：路由路径中设计的动态参数名
+        articleId: article.art_id
+      }
+    }"
+  >
     <!-- 标题插槽 -->
     <div slot="title" class="title van-multi-ellipsis--l2">
       {{ article.title }}

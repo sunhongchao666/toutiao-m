@@ -2,6 +2,11 @@
 import axios from 'axios'
 import store from '@/store/index'
 import router from '@/router'
+import jsonBig from 'json-bigint'
+
+var json = '{ "value" : 9223372036854775807, "v2": 123 }'
+
+console.log(jsonBig.parse(json))
 
 const request = axios.create({
   // 接口的基准路径 (原路径)
@@ -9,7 +14,21 @@ const request = axios.create({
   // 备用接口
   // baseURL: 'http://api-toutiao-web.itheima.net/'
   // 备用接口2   需要去掉/app路径  如:原接口:url: '/app/v1_1/articles'，现在需要删除'/app'：url: '/v1_1/articles'
-  baseURL: 'http://toutiao-app.itheima.net/'
+  baseURL: 'http://toutiao-app.itheima.net/',
+
+  // transformResponse 允许自定义原始的响应数据（字符串）
+  transformResponse: [
+    function(res) {
+      try {
+        return jsonBig.parse(res)
+      } catch (err) {
+        return res
+      }
+
+      // axios 默认会在内部这样来处理后端返回的数据
+      // return JSON.parse(data)
+    }
+  ]
 })
 
 // 请求拦截器   这里会在登陆时拦截token

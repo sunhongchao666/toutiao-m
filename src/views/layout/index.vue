@@ -1,7 +1,10 @@
 <template>
   <div class="layout-container">
-    <!-- 子路由出口 -->
-    <router-view />
+    <!-- 路由缓存 -->
+    <keep-alive>
+      <!-- 子路由出口 -->
+      <router-view />
+    </keep-alive>
 
     <!-- 标签导航栏 -->
     <!-- route:开启路由模式 -->
