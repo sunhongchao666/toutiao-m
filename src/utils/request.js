@@ -4,9 +4,9 @@ import store from '@/store/index'
 import router from '@/router'
 import jsonBig from 'json-bigint'
 
-var json = '{ "value" : 9223372036854775807, "v2": 123 }'
+// var json = '{ "value" : 9223372036854775807, "v2": 123 }'
 
-console.log(jsonBig.parse(json))
+// console.log(jsonBig.parse(json))
 
 const request = axios.create({
   // 接口的基准路径 (原路径)

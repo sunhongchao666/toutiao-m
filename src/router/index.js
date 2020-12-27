@@ -12,7 +12,6 @@ const routes = [
   },
   {
     path: '/',
-    name: 'layout',
     component: () => import('@/views/layout'),
     children: [
       {
@@ -48,6 +47,11 @@ const routes = [
     name: 'article',
     component: () => import('@/views/article'),
     props: true // 开启路由 props 传参，就是把路由的参数映射到组件的props属性里面
+  },
+  {
+    path: '/user/profile',
+    name: 'user-profile',
+    component: () => import('@/views/user-profile')
   }
 ]
 

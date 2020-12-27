@@ -1,6 +1,9 @@
 <template>
   <div class="article-list">
-    <!-- List 组件通过 loading 和 finished 两个变量控制加载状态，当组件滚动到底部时，会触发 load 事件并将 loading 设置成 true。此时可以发起异步操作并更新数据，数据更新完毕后，将 loading 设置成 false 即可。若数据已全部加载完毕，则直接将 finished 设置成 true 即可。 -->
+    <!-- List 组件通过 loading 和 finished 两个变量控制加载状态，
+    当组件滚动到底部时，会触发 load 事件并将 loading 设置成 true。
+    此时可以发起异步操作并更新数据，数据更新完毕后，将 loading 设置成 false 即可。
+    若数据已全部加载完毕，则直接将 finished 设置成 true 即可。-->
     <van-pull-refresh
       v-model="isRefreshLoading"
       :success-text="successInfo"
@@ -68,7 +71,7 @@ export default {
           timestamp: this.timestamp || Date.now(),
           with_top: 1
         })
-        console.log(res)
+        // console.log(res)
 
         // 数据太少 为了展示效果强行制造一个错误
         // if (Math.random() > 0.5) {
@@ -81,7 +84,7 @@ export default {
 
         // // 页面加载完成后 将 loading 改为 false 方便下次加载触发
         this.loading = false
-        console.log(results.length)
+        // console.log(results.length)
         // // 判断数据是否加载完成
         if (this.list.length >= results.length) {
           this.finished = true
@@ -91,7 +94,7 @@ export default {
           // 没有数据后，将加载状态设置结束
         }
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         this.loading = false // 关闭loading效果
         this.error = true // 开启错误提示
       }
@@ -106,7 +109,6 @@ export default {
           timestamp: Date.now(), // 下拉刷新每次请求获取最新数据，所以传时间戳
           with_top: 1
         })
-        console.log(res)
 
         //  为了展示效果强行制造一个错误
         // if (Math.random() > 0.3) {
