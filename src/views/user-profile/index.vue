@@ -9,8 +9,16 @@
     />
     <!-- /导航栏 -->
 
+    <!-- 图片选择文本 -->
+    <input type="file" hidden ref="file" @change="onFileChange" />
+
     <!-- 个人信息 -->
-    <van-cell title="头像" is-link
+    <van-cell
+      class="photo-cell"
+      title="头像"
+      is-link
+      center
+      @click="$refs.file.click()"
       ><van-image class="avatar" round fit="cover" :src="user.photo"
     /></van-cell>
     <van-cell
@@ -62,6 +70,21 @@
       />
     </van-popup>
     <!-- /生日弹出层 -->
+
+    <!-- 头像弹出层 -->
+    <van-popup
+      v-model="isUpdataPhotoShow"
+      position="bottom"
+      style="height: 100%"
+    >
+      <updata-photo
+        v-if="isUpdataPhotoShow"
+        :img="img"
+        @close="isUpdataPhotoShow = false"
+        @updata-photo="user.photo = $event"
+      />
+    </van-popup>
+    <!-- /头像弹出层 -->
   </div>
 </template>
 
@@ -70,13 +93,15 @@ import { getUserProfile } from '@/api/user'
 import UpdataName from './components/updata-name'
 import UpdataGender from './components/updata-gender'
 import UpdataBirthday from './components/updata-birthday'
+import UpdataPhoto from './components/updata-photo'
 
 export default {
   name: 'UserProfile',
   components: {
     UpdataName,
     UpdataGender,
-    UpdataBirthday
+    UpdataBirthday,
+    UpdataPhoto
   },
   props: {},
   data() {
@@ -84,7 +109,9 @@ export default {
       user: {}, // 个人信息
       isUpdataNameShow: false,
       isUpdataGenderShow: false,
-      isUpdataBirthdayShow: false
+      isUpdataBirthdayShow: false,
+      isUpdataPhotoShow: false,
+      img: null
     }
   },
   created() {
@@ -100,6 +127,22 @@ export default {
       } catch (error) {
         this.$taost('获取数据失败！')
       }
+    },
+
+    onFileChange() {
+      // 获取文件对象
+      const file = this.$refs.file.files[0]
+
+      // 基于文章对象获取 blob 数据
+      this.img = window.URL.createObjectURL(file)
+      console.log(this.img)
+
+      // 展示图片弹出层
+      this.isUpdataPhotoShow = true
+
+      // 如果 file-input 选择了同一个文件不会触发 change 事件
+      // 解决：每次使用完毕，把 input 框的 value 清空
+      this.$refs.file.value = ''
     }
   }
 }
